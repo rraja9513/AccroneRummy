@@ -4,6 +4,7 @@ const cors=require('cors');
 const session=require('express-session');
 const passport=require('passport');
 const Admin=require('./models/admin.model');
+const User=require('./models/user.model');
 require('dotenv').config();
 const app=express();
 app.use(cors());
@@ -25,8 +26,13 @@ connection.once('open',()=>{
 passport.use('adminLocal',Admin.createStrategy());
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
+passport.use('userLocal',User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 const adminRouter=require('./routes/admin');
+const userRouter=require('./routes/user');
 app.use('/admin',adminRouter);
+app.use('/user',userRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });
