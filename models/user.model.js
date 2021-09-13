@@ -3,19 +3,19 @@ const passportLocalMongoose=require('passport-local-mongoose');
 const Schema=mongoose.Schema;
 const userSchema=new Schema(
     {
+        fullname:{
+            type:String
+        },
+        phonenumber:{
+            type:String
+        },
         email:{
             type: String,
             required: true,
             match: /.+\@.+\..+/,
             unique: true
         },
-        name:{
-            type:String
-        },
-        place:{
-            type:String
-        },
-        phonenumber:{
+        username:{
             type:String
         },
         adharnumber:{
@@ -24,9 +24,24 @@ const userSchema=new Schema(
         pannumber:{
             type:String
         },
-        drivinglicence:{
+        drivinglicencenumber:{
             type:String
-        }
+        },
+        passportnumber:{
+            type:String
+        },
+        adhardocument:{
+            type:String
+        },
+        pandocument:{
+            type:String
+        },
+        drivinglicencedocument:{
+            type:String
+        },
+        passportdocument:{
+            type:String
+        },
     },
     {
         timestamps:true,

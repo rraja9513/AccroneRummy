@@ -1,5 +1,30 @@
 const router=require('express').Router();
 const passport=require('passport');
+const multer=require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+      cb(null, Date.now() + file.originalname);  
+  }
+});
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+// const upload=multer({dest:'uploads/'});
 let User=require('../models/user.model');
 router.route('/').post((req, res) => {
     User.find()
@@ -12,12 +37,12 @@ router.route('/').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
   router.route('/search').post((req, res) => {
-    User.find({$or:[{name:req.body.name},{adharnumber:req.body.name},{pannumber:req.body.name},{drivinglicence:req.body.name}]})
+    User.find({$or:[{fullname:req.body.name},{adharnumber:req.body.name},{pannumber:req.body.name},{drivinglicencenumber:req.body.name}]})
       .then(users => res.json(users))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-router.route('/signup').post((req,res)=>{
-  const Users=new User({email:req.body.email,name:req.body.name,place:req.body.place,phonenumber:req.body.phonenumber});   
+  router.route('/signup').post((req,res)=>{
+  const Users=new User({fullname:req.body.fullname,phonenumber:req.body.phonenumber,email:req.body.email,username:req.body.username});   
         User.register(Users,req.body.password,function(err,user){
             if(err)
             {
@@ -101,12 +126,17 @@ router.route('/login').post((req,res)=>{
     res.json("User  Not  Found")
   })
 });
-router.route('/update/:id').post((req,res)=>{
+router.post('/update/:id',upload.array('documents',4),(req,res,next)=>{
     User.findById(req.params.id)
       .then(user => {
         user.adharnumber = req.body.adharnumber;
         user.pannumber = req.body.pannumber;
-        user.drivinglicence=req.body.drivinglicence;
+        user.drivinglicencenumber=req.body.drivinglicencenumber;
+        user.passportnumber=req.body.passportnumber;
+        user.adhardocument=req.files[0].path;
+        user.pandocument=req.files[1].path;
+        user.drivinglicencedocument=req.files[2].path;
+        user.passportdocument=req.files[3].path;
         user.save()
           .then(() => res.json('User updated!'))
           .catch(err => res.status(400).json('Error: ' + err));
