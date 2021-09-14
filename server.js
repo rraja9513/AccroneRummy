@@ -8,6 +8,7 @@ const User=require('./models/user.model');
 require('dotenv').config();
 const app=express();
 app.use(cors());
+app.use('/uploads',express.static('uploads'));
 app.use(express.json());
 app.use(session({
     secret: 'keyboard cat',
