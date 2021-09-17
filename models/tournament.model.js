@@ -40,7 +40,7 @@ const tournamentSchema=new Schema(
                 position:{
                     type:String
                 },
-                price:{
+                pprice:{
                     type:String
                 },
                 pnumberofplayers:{

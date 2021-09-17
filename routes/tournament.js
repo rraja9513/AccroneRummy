@@ -24,7 +24,7 @@ router.route('/').post((req, res) => {
     const pricedistribution=[
         {
             position:req.body.position,
-            price:req.body.price,
+            pprice:req.body.pprice,
             pnumberofplayers:req.body.pnumberofplayers
         }
     ];
@@ -61,7 +61,7 @@ router.route('/').post((req, res) => {
       tournament.pricedistribution=[
           {
             position:req.body.position,
-            price:req.body.price,
+            pprice:req.body.pprice,
             pnumberofplayers:req.body.pnumberofplayers
           }
       ]
