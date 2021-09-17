@@ -36,12 +36,14 @@ const pointrummyRouter=require('./routes/pointrummy');
 const poolrummyRouter=require('./routes/poolrummy');
 const dealrummyRouter=require('./routes/dealrummy');
 const papplurummyRouter=require('./routes/papplurummy');
+const tournamentRouter=require('./routes/tournament');
 app.use('/admin',adminRouter);
 app.use('/user',userRouter);
 app.use('/pointrummy',pointrummyRouter);
 app.use('/poolrummy',poolrummyRouter);
 app.use('/dealrummy',dealrummyRouter);
 app.use('/papplurummy',papplurummyRouter);
+app.use('/tournament',tournamentRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });
