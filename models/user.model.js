@@ -42,6 +42,37 @@ const userSchema=new Schema(
         passportdocument:{
             type:String
         },
+        bankname:{
+            type:String
+        },
+        accountnumber:{
+            type:String
+        },
+        ifsccode:{
+            type:String
+        },
+        branch:{
+            type:String
+        },
+        benfiname:{
+            type:String
+        },
+        upiid:{
+            type:String
+        },
+        phonepay:{
+            type:String
+        },
+        googlepay:{
+            type:String
+        },
+        paytm:{
+            type:String
+        },
+        bhimpay:{
+            type:String
+        }
+
     },
     {
         timestamps:true,

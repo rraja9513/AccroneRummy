@@ -137,6 +137,16 @@ router.post('/update/:id',upload.array('documents',4),(req,res,next)=>{
         user.pandocument=req.files[1].path;
         user.drivinglicencedocument=req.files[2].path;
         user.passportdocument=req.files[3].path;
+        user.bankname=req.body.bankname;
+        user.accountnumber=req.body.accountnumber;
+        user.ifsccode=req.body.ifsccode;
+        user.branch=req.body.branch;
+        user.benfiname=req.body.benfiname;
+        user.upiid=req.body.upiid;
+        user.phonepay=req.body.phonepay;
+        user.googlepay=req.body.googlepay;
+        user.paytm=req.body.paytm;
+        user.bhimpay=req.body.bhimpay;
         user.save()
           .then(() => res.json('User updated!'))
           .catch(err => res.status(400).json('Error: ' + err));
